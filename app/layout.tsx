@@ -27,7 +27,12 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        {children}
+        <nav className="p-8 bg-blue-100">
+          React Demo Programación Web 
+        </nav>
+        <div className="bg-green-100 p-16 m-16 rounded-xl">
+          {children}
+        </div>
       </body>
     </html>
   );
