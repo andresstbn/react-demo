@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from 'react'
-
+import PokemonDetail from "@/components/PokemonDetail"
 const API_URL = "https://pokeapi.co/api/v2/pokemon/"
 export default function Pokedex() {
 
@@ -12,18 +12,22 @@ export default function Pokedex() {
         fetch(API_URL)
             .then(response => response.json())
             .then(data => {
+                console.log("pokeList", data)
                 setPokeList(data.results)
             })
     }, [])
 
     const fetchPokemon = async (url: string) => {
         // Hacemos una petición a la API de pokemon para obtener los datos del pokemon
+
+        console.log("fetching pokemon", url)
         const response = await fetch(url)
         const data = await response.json()
+        console.log(data)
         setCurrentPokemon(data)
     }
 
-    useEffect(() => {
+    useEffect(() => { // Hook De React
         // Escuchamos los cambios en el índice y en la lista de pokemones
         // Y si hay un cambio, actualizamos el pokemon actual
         if (pokeList[index]) {
@@ -38,36 +42,13 @@ export default function Pokedex() {
             <button onClick={() => setIndex(index - 1)} className="bg-purple-300 p-8 rounded-xl hover:bg-purple-400">
                 ⬅️
             </button>
-            <div className="bg-blue-200 p-8 rounded-xl">
-                {currentPokemon ?
-                    <div className='text-center'>
-                        <div className='flex gap-4'>
-                            <div className='h-20 w-20 bg-red-300 rounded-full'>
-                                <img src={currentPokemon.sprites?.front_default} alt="pokemon" />
-                            </div>
-                            <div className='h-20 w-20 bg-red-300 rounded-full'>
-                                <img src={currentPokemon.sprites?.back_default} alt="pokemon" />
-                            </div>
-                        </div>
-                        <div>Altura: {currentPokemon.height}</div>
-                        <div>Peso: {currentPokemon.weight}</div>
-                    </div>
-                    :
-                    <div>
-                        Cargando...
-                    </div>
-                }
-                <h2 className="text-xl text-center font-bold">
-                    {pokeList[index]?.name}</h2>
-            </div>
+            <PokemonDetail currentPokemon={currentPokemon} />
             <button onClick={() => setIndex(index + 1)} className="bg-purple-300 p-8 rounded-xl hover:bg-purple-400">
                 ➡️
             </button>
 
         </div>
     )
-
-
 }
 
 
