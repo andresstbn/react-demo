@@ -4,8 +4,8 @@ import PokemonDetail from "@/components/PokemonDetail"
 const API_URL = "https://pokeapi.co/api/v2/pokemon/"
 export default function Pokedex() {
 
-    const [pokeList, setPokeList] = useState([] as any[]) // Lista de pokemones
-    const [currentPokemon, setCurrentPokemon] = useState({} as any) // Pokemon actual
+    const [pokeList, setPokeList] = useState([]) // Lista de pokemones
+    const [currentPokemon, setCurrentPokemon] = useState({}) // Pokemon actual
     const [index, setIndex] = useState(0)
 
     useEffect(() => {
@@ -17,7 +17,7 @@ export default function Pokedex() {
             })
     }, [])
 
-    const fetchPokemon = async (url: string) => {
+    const fetchPokemon = async (url) => {
         // Hacemos una petición a la API de pokemon para obtener los datos del pokemon
 
         console.log("fetching pokemon", url)
